@@ -1,24 +1,29 @@
 #!/bin/bash
 
 _kill_procs() {
-  kill -TERM $chromium
-  wait $nw
-  kill -TERM $xvfb
+  kill -TERM $nw_pid
+  wait $nw_pid
+
+  kill -TERM $x11vnc_pid
+  kill -TERM $xvfb_pid
 }
 
 # Setup a trap to catch SIGTERM and relay it to child processes
 trap _kill_procs SIGTERM
 
+export DISPLAY=:99
+
 XVFB_WHD=${XVFB_WHD:-1280x720x16}
 
 # Start Xvfb
-Xvfb :99 -ac -screen 0 $XVFB_WHD -nolisten tcp &
-xvfb=$!
+Xvfb $DISPLAY -ac -screen 0 $XVFB_WHD -nolisten tcp &
+xvfb_pid=$!
 
-export DISPLAY=:99
+x11vnc -listen 0.0.0.0 -display $DISPLAY &
+x11vnc_pid=$!
 
 ${NWJS_INSTALL_DIR}/nw $@ &
-nw=$!
+nw_pid=$!
 
-wait $nw
-wait $xvfb
+wait $nw_pid
+wait $xvfb_pid
