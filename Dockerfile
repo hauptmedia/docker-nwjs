@@ -10,6 +10,7 @@ RUN	apt-get update -qq && \
 	apt-get --reinstall install xfonts-base -y && \
 	(curl -sL https://deb.nodesource.com/setup_5.x | bash -) && \
 	apt-get install nodejs npm -y && \
+	npm install npm -g && \
 	ln -s /usr/bin/nodejs /usr/bin/node && \
 	apt-get clean autoclean && \
 	apt-get autoremove --yes && \
