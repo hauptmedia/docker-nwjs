@@ -16,8 +16,7 @@ RUN	apt-get update -qq && \
 #install nodejs
 RUN     (curl -L https://deb.nodesource.com/setup_5.x | bash -) && \
         apt-get install -y nodejs && \
-        ln -s /usr/bin/nodejs /usr/local/bin/node && \
-        rm /tmp/setup_5.x
+        ln -s /usr/bin/nodejs /usr/local/bin/node
 
 
 #install nwjs
