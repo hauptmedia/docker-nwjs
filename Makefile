@@ -1,4 +1,4 @@
 nwjs:
-	docker build -t="hauptmedia/nwjs:latest" .
+	docker build -t="hauptmedia/nwjs" .
 
 .PHONY: nwjs
