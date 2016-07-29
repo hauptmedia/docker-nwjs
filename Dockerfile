@@ -7,16 +7,18 @@ ENV	NWJS_INSTALL_DIR /opt/nwjs
 
 
 RUN	apt-get update -qq && \
-	apt-get install xterm fluxbox eterm supervisor libexif12 libgconf-2-4 curl chromium xvfb x11vnc -y --no-install-recommends && \
+	apt-get install ca-certificates xterm fluxbox eterm supervisor libexif12 libgconf-2-4 curl chromium xvfb x11vnc -y --no-install-recommends && \
 	apt-get --reinstall install xfonts-base -y && \
-	ln -s /usr/bin/nodejs /usr/local/bin/node && \
 	apt-get clean autoclean && \
 	apt-get autoremove --yes && \
 	rm -rf /var/lib/{apt,dpkg,cache,log}/
 
 #install nodejs
-RUN     curl -sL https://deb.nodesource.com/setup_5.x | bash -
-RUN     apt-get install -y nodejs npm
+RUN     (curl -L https://deb.nodesource.com/setup_5.x | bash -) && \
+        apt-get install -y nodejs npm && \
+        ln -s /usr/bin/nodejs /usr/local/bin/node && \
+        rm /tmp/setup_5.x
+
 
 #install nwjs
 RUN		mkdir -p ${NWJS_INSTALL_DIR} && \
