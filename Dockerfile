@@ -6,7 +6,8 @@ ENV	NWJS_VERSION v0.14.7
 ENV	NWJS_INSTALL_DIR /opt/nwjs
 
 RUN	apt-get update -qq && \
-	apt-get install fluxbox eterm supervisor libexif12 libgconf-2-4 curl chromium xvfb x11vnc -y --no-install-recommends && \
+	apt-get install xterm fluxbox eterm supervisor libexif12 libgconf-2-4 curl chromium xvfb x11vnc -y --no-install-recommends && \
+	apt-get --reinstall install xfonts-base -y && \
 	(curl -sL https://deb.nodesource.com/setup_5.x | bash -) && \
 	apt-get install nodejs -y && \
 	apt-get clean autoclean && \
