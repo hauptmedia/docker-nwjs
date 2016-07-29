@@ -7,7 +7,7 @@ ENV	NWJS_INSTALL_DIR /opt/nwjs
 
 
 RUN	apt-get update -qq && \
-	apt-get install ca-certificates xterm fluxbox eterm supervisor libexif12 libgconf-2-4 curl chromium xvfb x11vnc -y --no-install-recommends && \
+	apt-get install build-essential ca-certificates xterm fluxbox eterm supervisor libexif12 libgconf-2-4 curl chromium xvfb x11vnc -y --no-install-recommends && \
 	apt-get --reinstall install xfonts-base -y && \
 	apt-get clean autoclean && \
 	apt-get autoremove --yes && \
