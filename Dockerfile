@@ -6,7 +6,7 @@ ENV	NWJS_VERSION v0.14.7
 ENV	NWJS_INSTALL_DIR /opt/nwjs
 
 RUN	apt-get update -qq && \
-	apt-get install supervisor libexif12 libgconf-2-4 curl chromium xvfb x11vnc -y --no-install-recommends && \
+	apt-get install fluxbox eterm supervisor libexif12 libgconf-2-4 curl chromium xvfb x11vnc -y --no-install-recommends && \
 	(curl -sL https://deb.nodesource.com/setup_5.x | bash -) && \
 	apt-get install nodejs -y && \
 	apt-get clean autoclean && \
@@ -19,6 +19,9 @@ RUN		mkdir -p ${NWJS_INSTALL_DIR} && \
 
 
 ENV     DISPLAY :99
+ENV     XVFB_SCREENSIZE 1280x720x16
+ENV     NWJS_ARGS ""
+
 ADD     supervisor/conf.d/ /etc/supervisor/conf.d/
 
 EXPOSE 5900
