@@ -5,17 +5,20 @@ ENV	DEBIAN_FRONTEND noninteractive
 ENV	NWJS_VERSION v0.14.7
 ENV	NWJS_INSTALL_DIR /opt/nwjs
 
+
 RUN	apt-get update -qq && \
 	apt-get install xterm fluxbox eterm supervisor libexif12 libgconf-2-4 curl chromium xvfb x11vnc -y --no-install-recommends && \
 	apt-get --reinstall install xfonts-base -y && \
-	(curl -sL https://deb.nodesource.com/setup_5.x | bash -) && \
-	apt-get install nodejs npm -y && \
-	npm install npm -g && \
-	ln -s /usr/bin/nodejs /usr/bin/node && \
+	ln -s /usr/bin/nodejs /usr/local/bin/node && \
 	apt-get clean autoclean && \
 	apt-get autoremove --yes && \
 	rm -rf /var/lib/{apt,dpkg,cache,log}/
 
+#install nodejs
+RUN     curl -sL https://deb.nodesource.com/setup_5.x | bash -
+RUN     apt-get install -y nodejs npm
+
+#install nwjs
 RUN		mkdir -p ${NWJS_INSTALL_DIR} && \
 		curl -L --silent http://dl.nwjs.io/${NWJS_VERSION}/nwjs-sdk-${NWJS_VERSION}-linux-x64.tar.gz | tar -xz --strip=1 -C ${NWJS_INSTALL_DIR} && \
 		chown -R root:root ${NWJS_INSTALL_DIR}
